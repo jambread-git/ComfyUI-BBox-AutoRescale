@@ -432,7 +432,7 @@ function injectStyles() {
 .bce-bar .bce-dims{color:#9a9a9a;margin-right:auto;white-space:nowrap;overflow:hidden}
 .bce-btn{background:#2b2b2b;border:1px solid #444;color:#ddd;border-radius:5px;padding:3px 8px;font-size:11px;cursor:pointer;flex:0 0 auto}
 .bce-btn:hover{background:#383838}
-.bce-btn.on{background:#46530a;border-color:#6a7a1a}
+.bce-btn.on{background:#10344f;border-color:#2f7fb5;color:#cfe6ff}
 .bce-btn.danger{color:#f87171}
 .bce-toolbtn{flex:0 0 72px;text-align:center}
 .bce-body{display:flex;flex-direction:column;gap:8px;padding:8px;flex:0 0 auto;min-height:0}

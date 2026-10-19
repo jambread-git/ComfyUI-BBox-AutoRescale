@@ -476,6 +476,7 @@ function createEditorUI(node, root) {
   let dragMode = null;
   let dragStart = null;
   let boxAtStart = null;
+  let prevActiveIndex = -1; // selection before a pending new-box drag started
   let inlineEditor = null; // {index, el}
   let raf = 0;
   let lastFit = { ox: 0, oy: 0, sw: 1, sh: 1 };
@@ -851,6 +852,7 @@ function createEditorUI(node, root) {
       boxAtStart = { ...regions[hit.index] };
     } else {
       dragMode = "draw";
+      prevActiveIndex = activeIndex;
       const nb = { x: mN.x, y: mN.y, w: 0, h: 0, type: "obj", text: "", desc: "", palette: [] };
       regions.push(nb);
       activeIndex = regions.length - 1;
@@ -860,7 +862,11 @@ function createEditorUI(node, root) {
     dragStart = mN;
     try { canvas.setPointerCapture(e.pointerId); } catch { /* synthetic events */ }
     e.preventDefault();
-    buildSidebar();
+    // Only rebuild the sidebar when an existing box was selected. For a
+    // pending new box, rebuilding here makes the sidebar flicker on a
+    // plain click (editor appears, then reverts on pointerup). The
+    // pointerup handler rebuilds once the box is committed or discarded.
+    if (hit) buildSidebar();
     requestDraw();
   });
 
@@ -879,7 +885,10 @@ function createEditorUI(node, root) {
     drawing = false;
     try { canvas.releasePointerCapture(e.pointerId); } catch { /* already released */ }
     const b = regions[activeIndex];
-    if (b && (b.w < 0.005 || b.h < 0.005)) removeRegion(activeIndex);
+    if (b && (b.w < 0.005 || b.h < 0.005)) {
+      removeRegion(activeIndex);
+      if (dragMode === "draw") activeIndex = prevActiveIndex;
+    }
     commit();
     buildSidebar();
     requestDraw();

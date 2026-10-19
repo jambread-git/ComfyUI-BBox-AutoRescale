@@ -540,7 +540,7 @@ function createEditorUI(node, root) {
   const hint = document.createElement("div");
   hint.className = "bce-hint";
   hint.textContent =
-    "ドラッグ:新規 / 内側:移動 / ハンドル:リサイズ / ダブルクリック:説明編集 / Del:削除 / Alt+クリック:重なり順に選択";
+    "ドラッグ:新規 / 内側:移動 / ハンドル:リサイズ / ダブルクリック:説明編集 / Del:削除 / Alt+クリック:隠れた箱を選択";
   side.appendChild(hint);
 
   function hslHex(h, s, l) {

@@ -9,6 +9,6 @@ dependencies = []
 Repository = "https://github.com/jambread-git/ComfyUI-BBox-AutoRescale"
 
 [tool.comfy]
-PublisherId = ""
+PublisherId = "jambread"
 DisplayName = "Create Bounding Boxes (Auto-Rescale)"
 Icon = ""

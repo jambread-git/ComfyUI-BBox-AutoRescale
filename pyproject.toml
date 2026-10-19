@@ -7,6 +7,7 @@ dependencies = []
 
 [project.urls]
 Repository = "https://github.com/jambread-git/ComfyUI-BBox-AutoRescale"
+"Bug Tracker" = "https://github.com/jambread-git/ComfyUI-BBox-AutoRescale/issues"
 
 [tool.comfy]
 PublisherId = "jambread"

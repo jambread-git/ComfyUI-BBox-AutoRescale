@@ -1,6 +1,6 @@
 # ComfyUI-BBox-AutoRescale
 
-![Version](https://img.shields.io/badge/version-1.0.2-2ea44f?style=flat-square)
+![Version](https://img.shields.io/badge/version-1.0.3-2ea44f?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 ![ComfyUI](https://img.shields.io/badge/ComfyUI-custom%20nodes-6f42c1?style=flat-square)
 

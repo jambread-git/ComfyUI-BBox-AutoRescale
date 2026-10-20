@@ -2,7 +2,7 @@
 [project]
 name = "comfyui-bbox-autorescale"
 description = "Drop-in replacement for comfy-core Create Bounding Boxes with a full in-node canvas editor (obj/text tabs, grid snapping, inline label editing, color palette) that auto-rescales saved boxes when width/height are overridden by a linked input such as ResolutionSelector."
-version = "1.0.1"
+version = "1.0.2"
 license = { file = "LICENSE" }
 dependencies = []
 

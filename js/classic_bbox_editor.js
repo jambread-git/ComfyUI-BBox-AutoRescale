@@ -1075,9 +1075,11 @@ function hookClassicEditor(node) {
   const ui = createEditorUI(node, el);
   node.__bceDestroy = () => ui.destroy();
 
-  // Give the editor a usable width; the node HEIGHT is auto-fitted to the
-  // canvas aspect by fitNode() once the editor mounts.
-  if (node.size[0] < 760) {
+  // Give a FRESHLY CREATED editor a usable width; the node HEIGHT is
+  // auto-fitted to the canvas aspect by fitNode() once the editor mounts.
+  // Nodes restored from a saved workflow (configure() ran with serialized
+  // data) keep the exact size Jam-kun left them at — no width bump.
+  if (!node.__bceRestored && node.size[0] < 760) {
     node.size = [760, node.size[1]];
     node.setDirtyCanvas(true, true);
   }
@@ -1088,6 +1090,16 @@ app.registerExtension({
   nodeCreated(node) {
     if (!EDIT_CLASSES.has(node.comfyClass)) return;
     if (!isClassicMode()) return;
+    // Mark nodes that come from a saved workflow: LiteGraph calls
+    // configure(info) with serialized data during graph load/paste, but
+    // never for a node the user just created. The flag lets the hook skip
+    // the default-width bump on restore, so saved node sizes survive
+    // workflow-tab switches and restarts.
+    const prevConfigure = node.configure;
+    node.configure = function (info) {
+      if (info) node.__bceRestored = true;
+      return prevConfigure ? prevConfigure.call(this, info) : undefined;
+    };
     // nodeCreated fires before configure(): defer so widget values from the
     // loaded workflow are already applied.
     setTimeout(() => safe("hookClassicEditor", () => hookClassicEditor(node)), 0);
